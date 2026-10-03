@@ -1,0 +1,283 @@
+/* parsCoffee Premium Coffee Shop Stylesheet */
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@200;300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+
+:root {
+  --color-bg-dark: #1b0e09;
+  --color-bg-medium: #2a160d;
+  --color-bg-card: #341b11;
+  --color-accent: #d4a373;
+  --color-accent-hover: #e5b98f;
+  --color-gold: #c59b6d;
+  --color-cream: #f4eee5;
+  --color-text-muted: #cbbda7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Vazirmatn', system-ui, -apple-system, sans-serif;
+  background-color: var(--color-bg-dark);
+  color: var(--color-cream);
+  overflow-x: hidden;
+  direction: rtl;
+  text-align: right;
+  selection-background-color: var(--color-accent);
+}
+
+::selection {
+  background-color: #d4a373;
+  color: #1b0e09;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #1b0e09;
+}
+::-webkit-scrollbar-thumb {
+  background: #4a2818;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d4a373;
+}
+
+/* Lenis Smooth Scroll Fixes */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Video Container & Masks */
+.video-stage {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.video-stage video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+  filter: contrast(1.05) brightness(0.92) saturate(1.1);
+  transition: filter 0.3s ease;
+}
+
+/* Luxurious Coffee Vignette Overlay */
+.video-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center, transparent 35%, rgba(27, 14, 9, 0.75) 75%, rgba(27, 14, 9, 0.98) 100%),
+    linear-gradient(to bottom, rgba(27, 14, 9, 0.85) 0%, transparent 20%, transparent 80%, rgba(27, 14, 9, 0.95) 100%);
+  pointer-events: none;
+}
+
+/* Side-aligned text zones for RTL */
+.align-right-zone {
+  padding-right: 8vw;
+  padding-left: 50vw;
+}
+
+.align-left-zone {
+  padding-left: 8vw;
+  padding-right: 50vw;
+}
+
+.section-inner {
+  max-width: 42vw;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(35, 18, 12, 0.65);
+  border: 1px solid rgba(212, 163, 115, 0.18);
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Scroll Sections Positioning */
+.scroll-section {
+  position: absolute;
+  width: 100%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 30;
+}
+
+.scroll-section .section-inner,
+.scroll-section .interactive {
+  pointer-events: auto;
+}
+
+/* Product Card with Mirror Reflection Effect (As in reference image) */
+.product-card-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product-pouch {
+  position: relative;
+  width: 180px;
+  height: 250px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #2c1a12 0%, #170d08 100%);
+  border: 1px solid rgba(212, 163, 115, 0.25);
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.7),
+    inset 0 2px 4px rgba(255, 255, 255, 0.15),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1rem;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  overflow: hidden;
+}
+
+.product-pouch::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 18px;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(212, 163, 115, 0.2),
+    rgba(212, 163, 115, 0.2) 2px,
+    transparent 2px,
+    transparent 6px
+  );
+  border-bottom: 1px dashed rgba(212, 163, 115, 0.3);
+}
+
+.product-pouch.pouch-light {
+  background: linear-gradient(135deg, #e3dacb 0%, #bfb29e 100%);
+  color: #2a160d;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.product-pouch.pouch-craft {
+  background: linear-gradient(135deg, #9b724c 0%, #684b30 100%);
+  color: #fdfaf6;
+  border-color: rgba(212, 163, 115, 0.35);
+}
+
+.product-card-wrap:hover .product-pouch {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow:
+    0 25px 50px rgba(0, 0, 0, 0.9),
+    0 0 25px rgba(212, 163, 115, 0.2);
+}
+
+/* Floor Reflection */
+.reflection-floor {
+  position: relative;
+  width: 100%;
+  height: 70px;
+  margin-top: 4px;
+  overflow: hidden;
+  opacity: 0.35;
+  transform: scaleY(-1);
+  filter: blur(1.5px);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 85%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 85%);
+  pointer-events: none;
+}
+
+/* Marquee Text Styling */
+.marquee-container {
+  position: fixed;
+  top: 35vh;
+  width: 100%;
+  pointer-events: none;
+  z-index: 15;
+  opacity: 0.08;
+  white-space: nowrap;
+}
+
+.marquee-content {
+  display: inline-block;
+  font-family: 'Playfair Display', serif;
+  font-size: 16vw;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: #f4eee5;
+  will-change: transform;
+}
+
+/* Toast Notifications */
+#cart-toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  background: #341b11;
+  border: 1px solid #d4a373;
+  color: #f4eee5;
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+#cart-toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .align-right-zone,
+  .align-left-zone {
+    padding-right: 5vw;
+    padding-left: 5vw;
+  }
+  .section-inner {
+    max-width: 90vw;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+  .marquee-content {
+    font-size: 26vw;
+  }
+}
+
+@media (max-width: 640px) {
+  .section-inner {
+    padding: 1.5rem;
+  }
+  .product-pouch {
+    width: 150px;
+    height: 210px;
+  }
+}

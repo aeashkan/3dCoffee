@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پارس کافی | parsCoffee - فروش تخصصی دانه‌های قهوه اصیل</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        coffee: {
+                            50: '#faf7f2',
+                            100: '#f4eee5',
+                            200: '#e4c4a4',
+                            300: '#d4a373',
+                            400: '#b87c53',
+                            500: '#965a36',
+                            600: '#6d3d25',
+                            700: '#4a2818',
+                            800: '#351b11',
+                            900: '#26140c',
+                            950: '#1b0e09',
+                        },
+                        gold: {
+                            400: '#f3c78e',
+                            500: '#d4a373',
+                            600: '#c59b6d',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Vazirmatn', 'system-ui', 'sans-serif'],
+                        display: ['Vazirmatn', 'Playfair Display', 'serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-coffee-950 text-coffee-100 font-sans overflow-x-hidden antialiased selection:bg-coffee-300 selection:text-coffee-950">
+
+    <!-- 1. لودر بارگذاری اولیه -->
+    <div id="loader" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-coffee-950 transition-opacity duration-700">
+        <div class="flex items-center gap-3 mb-6">
+            <svg class="w-12 h-12 text-coffee-300 animate-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                <line x1="6" y1="1" x2="6" y2="4"></line>
+                <line x1="10" y1="1" x2="10" y2="4"></line>
+                <line x1="14" y1="1" x2="14" y2="4"></line>
+            </svg>
+            <h1 class="font-display text-4xl font-bold text-coffee-100 tracking-tight">پارس کافی</h1>
+        </div>
+        <p class="text-coffee-400 text-sm mb-6 font-light">در حال آماده‌سازی دانه‌های تازه و ویدیو...</p>
+        <div class="w-72 h-1.5 bg-coffee-900 rounded-full overflow-hidden shadow-inner">
+            <div id="loader-bar" class="h-full bg-gradient-to-r from-coffee-500 via-coffee-300 to-gold-400 w-0 transition-all duration-300"></div>
+        </div>
+        <div id="loader-percent" class="mt-4 text-xs text-coffee-300 font-mono tracking-widest">۰٪</div>
+    </div>
+
+    <!-- 2. هدر ثابت شیشه‌ای سایت -->
+    <header class="site-header fixed top-0 left-0 w-full z-40 px-6 py-4 md:px-12 md:py-6 flex justify-between items-center transition-all duration-300 backdrop-blur-md bg-coffee-950/40 border-b border-coffee-800/40">
+        <!-- لوگو -->
+        <a href="#" class="flex items-center gap-3 group">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-coffee-700 to-coffee-900 border border-coffee-400/30 flex items-center justify-center shadow-lg shadow-coffee-950/50 group-hover:border-coffee-300 transition-colors">
+                <svg class="w-5 h-5 text-coffee-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 2v3M10 2v3M14 2v3"></path>
+                </svg>
+            </div>
+            <span class="font-display font-black text-2xl tracking-tight text-white group-hover:text-coffee-200 transition-colors">parsCoffee</span>
+        </a>
+
+        <!-- منوی ناوبری -->
+        <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-coffee-300">
+            <a href="#hero" class="text-white hover:text-coffee-200 transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:right-0 after:w-full after:h-0.5 after:bg-coffee-300 after:rounded-full">صفحه اصلی</a>
+            <a href="#products-section" class="hover:text-white transition-colors py-1">دانه‌های تخصصی</a>
+            <a href="#origin-section" class="hover:text-white transition-colors py-1">داستان خاستگاه</a>
+            <a href="#roast-section" class="hover:text-white transition-colors py-1">هنر برشته‌کاری</a>
+            <a href="#stats-section" class="hover:text-white transition-colors py-1">افتخارات ما</a>
+            <a href="#footer" class="hover:text-white transition-colors py-1">تماس با ما</a>
+        </nav>
+
+        <!-- اکشن‌های ورود، ثبت نام و سبد خرید -->
+        <div class="flex items-center gap-4 text-sm font-medium">
+            <!-- دکمه سبد خرید -->
+            <button id="cart-btn" class="relative p-2.5 rounded-full bg-coffee-900/80 border border-coffee-700/60 hover:border-coffee-400 text-coffee-200 hover:text-white transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                </svg>
+                <span id="cart-count" class="absolute -top-1.5 -left-1.5 w-5 h-5 bg-coffee-300 text-coffee-950 text-xs font-bold rounded-full flex items-center justify-center shadow">۰</span>
+            </button>
+
+            <a href="#" class="hidden sm:inline-block text-coffee-200 hover:text-white transition-colors px-3 py-2">ورود</a>
+            <a href="#products-section" class="px-6 py-2.5 bg-gradient-to-r from-coffee-100 to-white text-coffee-950 font-bold rounded-full hover:bg-coffee-200 hover:shadow-[0_0_20px_rgba(212,163,115,0.4)] transition-all shadow-md">
+                خرید آنلاین دانه
+            </a>
+        </div>
+    </header>
+
+    <!-- 3. سکوی ویدیویی و بوم متحرک (Video Stage) -->
+    <div class="video-stage">
+        <!-- پخش مستقیم ویدیوی کاربر که با اسکرول کنترل می‌شود -->
+        <video id="coffee-video" src="video/Coffee_make.mp4" playsinline muted preload="auto" class="w-full h-full object-cover"></video>
+        <!-- فیلتر وینییت و گرادینت تیره غنی برای نمایش هماهنگ محتوا -->
+        <div class="video-vignette"></div>
+    </div>
+
+    <!-- 4. متن متحرک مارکی (Marquee) در پس‌زمینه -->
+    <div class="marquee-container">
+        <div class="marquee-content">
+            PARS COFFEE ROASTERS • SINGLE ORIGIN BEANS • ARTISAN ROAST • ESPRESSO SPECIALTY •
+        </div>
+    </div>
+
+    <!-- 5. کانتینر اصلی اسکرول (۸۰۰vh برای پیمایش نرم و عمیق) -->
+    <div id="scroll-container" class="relative z-30 h-[800vh]">
+
+        <!-- هیرو بخش ۱: آغاز با سبک تصویر نمونه (0% - 15% اسکرول) -->
+        <section id="hero" class="scroll-section" style="top: 8%;">
+            <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- ستون اصلی متن -->
+                <div class="lg:col-span-8 section-inner !bg-coffee-950/75 !border-coffee-500/30 !max-w-3xl">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-coffee-800/80 border border-coffee-400/30 text-coffee-300 text-xs font-semibold mb-6">
+                        <span class="w-2 h-2 rounded-full bg-coffee-300 animate-ping"></span>
+                        <span>کیفیت استثنایی • EXCEPTIONAL QUALITY</span>
+                    </div>
+
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-black leading-tight text-white mb-6">
+                        قهوه فقط یک نوشیدنی نیست...<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-l from-coffee-200 via-coffee-300 to-gold-400">یک آیین و تجربه ناب است</span>
+                    </h1>
+
+                    <p class="text-coffee-200/90 text-lg md:text-xl font-light leading-relaxed mb-8 max-w-2xl">
+                        ماموریت ما در <strong class="text-white font-medium">پارس کافی</strong> ارائه تازه‌ترین دانه‌های دست‌چین و ارگانیک از برجسته‌ترین مزارع مرتفع جهان است. هر بسته با روست تخصصی، رایحه‌ای از اشتیاق ما برای رسیدن به بی‌نقص‌ترین فنجان شماست.
+                    </p>
+
+                    <div class="flex flex-wrap items-center gap-4">
+                        <a href="#products-section" class="px-8 py-4 bg-gradient-to-r from-coffee-300 to-gold-400 text-coffee-950 font-bold rounded-full hover:from-gold-400 hover:to-coffee-200 transition-all shadow-[0_0_30px_rgba(212,163,115,0.4)] flex items-center gap-2 group">
+                            <span>مشاهده کاتالوگ دانه‌ها</span>
+                            <svg class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+                        </a>
+                        <a href="#origin-section" class="px-7 py-4 rounded-full border border-coffee-400/40 text-coffee-200 hover:bg-coffee-900/60 hover:text-white transition-all font-medium">
+                            داستان دانه‌های ما
+                        </a>
+                    </div>
+                </div>
+
+                <!-- ستون یادداشت الهام‌بخش مشابه عکس نمونه -->
+                <div class="lg:col-span-4 hidden lg:block">
+                    <div class="p-6 rounded-2xl bg-coffee-950/60 border border-coffee-700/40 backdrop-blur-md">
+                        <svg class="w-8 h-8 text-coffee-400 mb-3 opacity-80" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"></path></svg>
+                        <p class="text-coffee-300/90 text-sm leading-relaxed font-light">
+                            ما تلاش می‌کنیم پیوندهای عمیقی با کشاورزان در سراسر جهان برقرار کنیم تا با همکاری یکدیگر، دانه‌هایی با بالاترین کیفیت و روست اختصاصی به دست شما برسانیم.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- نشانگر اسکرول به پایین -->
+            <div class="mt-12 flex flex-col items-center justify-center gap-2 opacity-80 animate-bounce">
+                <span class="text-xs uppercase tracking-widest text-coffee-300 font-medium">برای تماشای ویدیوی دم‌آوری اسکرول کنید</span>
+                <svg class="w-5 h-5 text-coffee-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            </div>
+        </section>
+
+        <!-- بخش ۲: خاستگاه و دست‌چین دانه (22% - 38% اسکرول) -->
+        <section id="origin-section" class="scroll-section align-right-zone" data-enter="20" data-leave="36" data-animation="slide-right">
+            <div class="section-inner">
+                <span class="inline-block text-xs uppercase tracking-widest text-coffee-300 font-bold mb-3">۰۱ / خاستگاه‌های افسانه‌ای</span>
+                <h2 class="text-3xl md:text-5xl font-black text-white mb-5 leading-tight">
+                    دست‌چین شده از<br>ارتفاعات بالای ۱۸۰۰ متر
+                </h2>
+                <p class="text-coffee-200/90 text-base md:text-lg font-light leading-relaxed mb-6">
+                    گیلاس‌های قهوه تنها زمانی چیده می‌شوند که به غنی‌ترین رنگ یاقوتی و بالاترین میزان قند طبیعی رسیده باشند. خاک آتشفشانی و بارش‌های کوهستانی، طعم‌یادهای میوه‌ای، گلی و شکری منحصربه‌فردی به این دانه‌ها می‌بخشند.
+                </p>
+                <div class="grid grid-cols-2 gap-3 pt-3 border-t border-coffee-700/50">
+                    <div class="flex items-center gap-2 text-sm text-coffee-300">
+                        <span class="w-2 h-2 rounded-full bg-coffee-400"></span>
+                        <span>۱۰۰٪ نژاد عربیکا اعلا</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-coffee-300">
+                        <span class="w-2 h-2 rounded-full bg-coffee-400"></span>
+                        <span>تجارت مستقیم عادلانه</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-coffee-300">
+                        <span class="w-2 h-2 rounded-full bg-coffee-400"></span>
+                        <span>فرآوری طبیعی و شسته</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-coffee-300">
+                        <span class="w-2 h-2 rounded-full bg-coffee-400"></span>
+                        <span>رطوبت‌سنجی آزمایشگاهی</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- بخش ۳: فرآیند برشته‌کاری و دم‌آوری همگام با ویدیو (40% - 56% اسکرول) -->
+        <section id="roast-section" class="scroll-section align-left-zone" data-enter="38" data-leave="55" data-animation="slide-left">
+            <div class="section-inner">
+                <span class="inline-block text-xs uppercase tracking-widest text-coffee-300 font-bold mb-3">۰۲ / هنر برشته‌کاری و عصاره‌گیری</span>
+                <h2 class="text-3xl md:text-5xl font-black text-white mb-5 leading-tight">
+                    تلاقی علم، حرارت<br>و وسواس طعمی
+                </h2>
+                <p class="text-coffee-200/90 text-base md:text-lg font-light leading-relaxed mb-6">
+                    ویدیو با هر چرخش موس، مراحل آماده‌سازی و استخراج کرمای غلیظ قهوه را آشکار می‌سازد. ما با تجهیزات رستر هوای داغ پیشرفته، دمای برشته‌کاری را ثانیه به ثانیه کنترل می‌کنیم تا نت‌های اصیل دانه نسوزند.
+                </p>
+                <!-- شاخص‌های عصاره‌گیری تخصصی -->
+                <div class="bg-coffee-950/70 p-4 rounded-xl border border-coffee-800/80 space-y-2 text-sm">
+                    <div class="flex justify-between items-center text-coffee-300">
+                        <span>دمای دم‌آوری ایده‌آل:</span>
+                        <span class="font-mono text-white font-bold">۹۲.۵ درجه سانتی‌گراد</span>
+                    </div>
+                    <div class="flex justify-between items-center text-coffee-300">
+                        <span>نسبت آب به قهوه (Brew Ratio):</span>
+                        <span class="font-mono text-white font-bold">۱:۱۵ استاندارد SCA</span>
+                    </div>
+                    <div class="flex justify-between items-center text-coffee-300">
+                        <span>زمان بلومینگ (شکوفایی رایحه):</span>
+                        <span class="font-mono text-white font-bold">۳۵ ثانیه</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- بخش ۴: اعداد و حقایق کلیدی (58% - 72% اسکرول) -->
+        <section id="stats-section" class="scroll-section w-full" data-enter="58" data-leave="72" data-animation="stagger-up">
+            <div class="max-w-6xl mx-auto px-6 text-center">
+                <div class="inline-block px-4 py-1 rounded-full bg-coffee-800/60 border border-coffee-600/40 text-coffee-300 text-xs font-bold uppercase tracking-widest mb-10">
+                    استانداردهای بین‌المللی پارس کافی
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6">
+                    <div class="stat p-6 rounded-2xl bg-coffee-950/80 border border-coffee-700/30 backdrop-blur-md">
+                        <div class="text-transparent bg-clip-text bg-gradient-to-b from-white to-coffee-300 font-display font-black text-5xl md:text-7xl mb-2 flex items-baseline justify-center">
+                            <span class="stat-number" data-value="92" data-decimals="0">۰</span>
+                            <span class="text-3xl font-sans text-coffee-300 mr-1">+</span>
+                        </div>
+                        <span class="text-coffee-300 text-sm font-medium">امتیاز ارزیابی SCA</span>
+                    </div>
+
+                    <div class="stat p-6 rounded-2xl bg-coffee-950/80 border border-coffee-700/30 backdrop-blur-md">
+                        <div class="text-transparent bg-clip-text bg-gradient-to-b from-white to-coffee-300 font-display font-black text-5xl md:text-7xl mb-2 flex items-baseline justify-center">
+                            <span class="stat-number" data-value="100" data-decimals="0">۰</span>
+                            <span class="text-3xl font-sans text-coffee-300 mr-1">٪</span>
+                        </div>
+                        <span class="text-coffee-300 text-sm font-medium">دانه‌های خالص عربیکا</span>
+                    </div>
+
+                    <div class="stat p-6 rounded-2xl bg-coffee-950/80 border border-coffee-700/30 backdrop-blur-md">
+                        <div class="text-transparent bg-clip-text bg-gradient-to-b from-white to-coffee-300 font-display font-black text-5xl md:text-7xl mb-2 flex items-baseline justify-center">
+                            <span class="stat-number" data-value="24" data-decimals="0">۰</span>
+                            <span class="text-2xl font-sans text-coffee-300 mr-1">ساعت</span>
+                        </div>
+                        <span class="text-coffee-300 text-sm font-medium">حداکثر فاصله روست تا ارسال</span>
+                    </div>
+
+                    <div class="stat p-6 rounded-2xl bg-coffee-950/80 border border-coffee-700/30 backdrop-blur-md">
+                        <div class="text-transparent bg-clip-text bg-gradient-to-b from-white to-coffee-300 font-display font-black text-5xl md:text-7xl mb-2 flex items-baseline justify-center">
+                            <span class="stat-number" data-value="18" data-decimals="0">۰</span>
+                            <span class="text-3xl font-sans text-coffee-300 mr-1">+</span>
+                        </div>
+                        <span class="text-coffee-300 text-sm font-medium">خاستگاه و ترکیب تخصصی</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- بخش ۵: کاتالوگ محصولات با انعکاس لوکس مشابه تصویر کاربر (75% - 92% اسکرول) -->
+        <section id="products-section" class="scroll-section w-full" data-enter="75" data-leave="92" data-animation="fade-up">
+            <div class="max-w-7xl mx-auto px-6 text-center">
+                <span class="inline-block text-xs uppercase tracking-widest text-coffee-300 font-bold mb-3">مجموعه برگزیده پارس کافی</span>
+                <h2 class="text-3xl md:text-5xl font-black text-white mb-4">انتخاب بهترین دانه‌های قهوه برای شما</h2>
+                <p class="text-coffee-300 text-base md:text-lg font-light max-w-2xl mx-auto mb-12">
+                    بسته‌بندی شده در پاکت‌های سه لایه آلومینیومی با سوپاپ یک‌طرفه تخلیه گاز دی‌اکسید کربن برای حفظ حداکثر تازگی و عطر
+                </p>
+
+                <!-- ردیف پاکت‌های قهوه با انعکاس آینه‌ای روی سطح تیره (دقیقاً مشابه عکس ارسالی) -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto items-end">
+
+                    <!-- محصول ۱: کلمبیا دارک روست -->
+                    <div class="product-card-wrap group">
+                        <div class="product-pouch relative">
+                            <div class="text-center w-full">
+                                <span class="text-[10px] tracking-widest text-coffee-400 font-mono block mb-1">PARS COFFEE</span>
+                                <h4 class="text-xs font-bold text-coffee-200">COLOMBIA</h4>
+                                <div class="w-8 h-0.5 bg-coffee-500 mx-auto my-2"></div>
+                            </div>
+                            <div class="my-auto text-center">
+                                <div class="w-16 h-16 rounded-full border border-dashed border-coffee-400/40 mx-auto flex items-center justify-center mb-2">
+                                    <svg class="w-8 h-8 text-coffee-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"></path></svg>
+                                </div>
+                                <span class="text-[11px] font-bold text-coffee-100 block">روست تیره شکلاتی</span>
+                                <span class="text-[9px] text-coffee-400">۲۵۰ گرم دانه کامل</span>
+                            </div>
+                            <div class="text-center w-full pt-2 border-t border-coffee-800">
+                                <span class="text-[10px] text-gold-400 font-medium">Dark Roast Blend</span>
+                            </div>
+                        </div>
+
+                        <!-- انعکاس آینه‌ای کف -->
+                        <div class="reflection-floor">
+                            <div class="product-pouch opacity-50 scale-95 mx-auto"></div>
+                        </div>
+
+                        <!-- جزییات محصول -->
+                        <div class="mt-4 text-center">
+                            <h3 class="text-xl font-bold text-white mb-1">روست تیره کلمبیا</h3>
+                            <p class="text-xs text-coffee-300 mb-2">طعم‌یاد: شکلات تلخ، کارامل، فندق بو داده</p>
+                            <div class="text-lg font-bold text-gold-400 mb-4">۳۸۵,۰۰۰ تومان</div>
+                            <button onclick="addToCart('روست تیره کلمبیا', 385000)" class="px-6 py-2.5 bg-coffee-800 hover:bg-coffee-300 hover:text-coffee-950 border border-coffee-600 rounded-full text-sm font-semibold transition-all shadow-lg">
+                                افزودن به سبد خرید
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- محصول ۲: سوئیس واتر دیکف -->
+                    <div class="product-card-wrap group">
+                        <div class="product-pouch pouch-light relative">
+                            <div class="text-center w-full">
+                                <span class="text-[10px] tracking-widest text-coffee-800 font-mono block mb-1">PARS COFFEE</span>
+                                <h4 class="text-xs font-bold text-coffee-900">SWISS WATER</h4>
+                                <div class="w-8 h-0.5 bg-coffee-700 mx-auto my-2"></div>
+                            </div>
+                            <div class="my-auto text-center">
+                                <div class="w-16 h-16 rounded-full border border-dashed border-coffee-700/50 mx-auto flex items-center justify-center mb-2">
+                                    <svg class="w-8 h-8 text-coffee-800" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><path d="M8 12h8"></path></svg>
+                                </div>
+                                <span class="text-[11px] font-bold text-coffee-950 block">بدون کافئین ۱۰۰٪ طبیعی</span>
+                                <span class="text-[9px] text-coffee-700">۲۵۰ گرم دانه کامل</span>
+                            </div>
+                            <div class="text-center w-full pt-2 border-t border-coffee-300">
+                                <span class="text-[10px] text-coffee-900 font-bold">Decaf Process</span>
+                            </div>
+                        </div>
+
+                        <!-- انعکاس آینه‌ای کف -->
+                        <div class="reflection-floor">
+                            <div class="product-pouch pouch-light opacity-50 scale-95 mx-auto"></div>
+                        </div>
+
+                        <!-- جزییات محصول -->
+                        <div class="mt-4 text-center">
+                            <h3 class="text-xl font-bold text-white mb-1">سوئیس واتر دیکف</h3>
+                            <p class="text-xs text-coffee-300 mb-2">طعم‌یاد: عسل، بادام شیرین، وانیل ارگانیک</p>
+                            <div class="text-lg font-bold text-gold-400 mb-4">۴۱۰,۰۰۰ تومان</div>
+                            <button onclick="addToCart('سوئیس واتر دیکف', 410000)" class="px-6 py-2.5 bg-coffee-800 hover:bg-coffee-300 hover:text-coffee-950 border border-coffee-600 rounded-full text-sm font-semibold transition-all shadow-lg">
+                                افزودن به سبد خرید
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- محصول ۳: فرنچ روست کلاسیک -->
+                    <div class="product-card-wrap group">
+                        <div class="product-pouch pouch-craft relative">
+                            <div class="text-center w-full">
+                                <span class="text-[10px] tracking-widest text-coffee-200 font-mono block mb-1">PARS COFFEE</span>
+                                <h4 class="text-xs font-bold text-white">FRENCH ROAST</h4>
+                                <div class="w-8 h-0.5 bg-coffee-300 mx-auto my-2"></div>
+                            </div>
+                            <div class="my-auto text-center">
+                                <div class="w-16 h-16 rounded-full border border-dashed border-coffee-200/50 mx-auto flex items-center justify-center mb-2">
+                                    <svg class="w-8 h-8 text-coffee-100" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                </div>
+                                <span class="text-[11px] font-bold text-white block">روست فرانسوی تیره و سنگین</span>
+                                <span class="text-[9px] text-coffee-200">۲۵۰ گرم دانه کامل</span>
+                            </div>
+                            <div class="text-center w-full pt-2 border-t border-coffee-600">
+                                <span class="text-[10px] text-gold-400 font-medium">Extra Intense</span>
+                            </div>
+                        </div>
+
+                        <!-- انعکاس آینه‌ای کف -->
+                        <div class="reflection-floor">
+                            <div class="product-pouch pouch-craft opacity-50 scale-95 mx-auto"></div>
+                        </div>
+
+                        <!-- جزییات محصول -->
+                        <div class="mt-4 text-center">
+                            <h3 class="text-xl font-bold text-white mb-1">فرنچ روست اصیل</h3>
+                            <p class="text-xs text-coffee-300 mb-2">طعم‌یاد: اسموکی عمیق، کاکائو، بادی سنگین</p>
+                            <div class="text-lg font-bold text-gold-400 mb-4">۳۶۵,۰۰۰ تومان</div>
+                            <button onclick="addToCart('فرنچ روست اصیل', 365000)" class="px-6 py-2.5 bg-coffee-800 hover:bg-coffee-300 hover:text-coffee-950 border border-coffee-600 rounded-full text-sm font-semibold transition-all shadow-lg">
+                                افزودن به سبد خرید
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- بخش ۶: انتهای اسکرول - دعوت به خرید و فوتر ماندگار (93% - 100% اسکرول) -->
+        <section id="footer" class="scroll-section w-full" data-enter="93" data-leave="100" data-animation="fade-up" data-persist="true" style="top: 96%;">
+            <div class="max-w-5xl mx-auto px-6">
+                <!-- کارت CTA پایانی -->
+                <div class="p-8 md:p-12 rounded-3xl bg-gradient-to-r from-coffee-900 via-coffee-800 to-coffee-900 border border-coffee-500/40 shadow-2xl text-center relative overflow-hidden">
+                    <div class="absolute -right-20 -top-20 w-60 h-60 bg-coffee-400/10 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="absolute -left-20 -bottom-20 w-60 h-60 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                    <span class="text-xs uppercase tracking-widest text-coffee-300 font-bold block mb-3">شروع یک روز پر انرژی</span>
+                    <h3 class="text-2xl md:text-4xl font-black text-white mb-4">می‌خواهید دانه‌ها متناسب با دستگاه شما آسیاب شوند؟</h3>
+                    <p class="text-coffee-200 text-sm md:text-base max-w-2xl mx-auto mb-8 font-light">
+                        هنگام ثبت سفارش می‌توانید درجه آسیاب را متناسب با اسپرسوساز خانگی، موکاپات، کمکس، فرانسه یا دانه درسته انتخاب کنید.
+                    </p>
+
+                    <form onsubmit="handleNewsletter(event)" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-8">
+                        <input type="text" placeholder="شماره موبایل یا ایمیل شما..." required class="flex-grow px-5 py-3 rounded-full bg-coffee-950/80 border border-coffee-600 text-white placeholder-coffee-400 text-sm focus:outline-none focus:border-coffee-300 text-right">
+                        <button type="submit" class="px-7 py-3 bg-gradient-to-r from-coffee-300 to-gold-400 hover:from-gold-400 hover:to-coffee-200 text-coffee-950 font-bold rounded-full text-sm transition-all shadow-md whitespace-nowrap">
+                            دریافت کوپن ۱۵٪
+                        </button>
+                    </form>
+
+                    <!-- فوتر ساده و سریع -->
+                    <div class="pt-8 border-t border-coffee-700/60 flex flex-col md:flex-row items-center justify-between text-xs text-coffee-400 gap-4">
+                        <div>© ۱۴۰۳ تمامی حقوق برای فروشگاه تخصصی قهوه پارس کافی (parsCoffee) محفوظ است.</div>
+                        <div class="flex items-center gap-6">
+                            <a href="#" class="hover:text-coffee-200">اینستاگرام</a>
+                            <a href="#" class="hover:text-coffee-200">تلگرام</a>
+                            <a href="#" class="hover:text-coffee-200">شرایط بازگشت کالا</a>
+                            <a href="#" class="hover:text-coffee-200">پشتیبانی: ۰۲۱-۸۸۸۸۴۴۴۴</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- توست نوتیفیکیشن افزودن به سبد خرید -->
+    <div id="cart-toast">
+        <svg class="w-6 h-6 text-coffee-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        <div>
+            <div id="toast-title" class="font-bold text-sm text-white">محصول به سبد اضافه شد!</div>
+            <div id="toast-desc" class="text-xs text-coffee-300">سفارش شما در حال پردازش است</div>
+        </div>
+    </div>
+
+    <!-- اسکریپت‌های ضروری انیمیشن و روان‌سازی اسکرول -->
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

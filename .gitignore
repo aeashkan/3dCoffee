@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# Claude & Editor configurations
+.claude/
+.vscode/
+.idea/
+
+# OS specific files
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
